@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:camel="http://camel.apache.org/schema/spring"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
+    <bean class="org.redhat.demo.InputConvertor" id="inputConvertor"/>
+    <camelContext id="camel" xmlns="http://camel.apache.org/schema/spring">
+        <restConfiguration apiContextPath="api-docs" bindingMode="json"
+            component="servlet" contextPath="/accidentcenter">
+            <apiProperty key="cors" value="true"/>
+            <apiProperty key="api.title" value="My Accident Center"/>
+            <apiProperty key="api.version" value="1.0.0"/>
+            <apiProperty key="cors" value="true"/>
+            <apiProperty key="api.title" value="FIS Gateway"/>
+            <apiProperty key="api.version" value="1.0.0"/>
+            <corsHeaders key="Access-Control-Allow-Origin" value="*"/>
+            <corsHeaders key="Access-Control-Allow-Methods" value="GET, HEAD, POST, PUT, DELETE, TRACE, OPTIONS, CONNECT, PATCH"/>
+            <corsHeaders key="Access-Control-Allow-Headers" value="Origin, Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers"/>
+        </restConfiguration>
+        <rest path="/">
+            <post uri="report">
+                <description>Report an accident</description>
+                <to uri="direct:report"/>
+            </post>
+        </rest>
+        <route id="report">
+            <from id="report" uri="direct:report"/>
+            <log id="log-type" message="type >>> ${header.type}"/>
+            <log id="log-contactName" message="contactName >>> ${header.contactName}"/>
+            <log id="log-date" message="date >>> ${header.accidentdate}"/>
+            <log id="log-phone" message="phone >>> ${header.phone}"/>
+            <log id="log-email" message="email >>> ${header.email}"/>
+            <log id="log-description" message="description >>> ${header.description}"/>
+            <process id="_process1" ref="inputConvertor"/>
+            <marshal id="_unmarshal1">
+                <json library="Jackson"/>
+            </marshal>
+            <log id="log-body" message="${body}"/>
+            <to id="_tomq" uri="amq:topic:alert?exchangePattern=InOnly"/>
+            <setBody id="_setBody1">
+                <constant>{'status':'done'}</constant>
+            </setBody>
+        </route>
+    </camelContext>
+</beans>
