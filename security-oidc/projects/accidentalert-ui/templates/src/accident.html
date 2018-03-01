@@ -369,6 +369,9 @@
 				$.ajax({
 					type: "post",
 					contentType: "application/json",
+					headers: {
+						'Authorization': 'Bearer ' + keycloak.token
+					},
 					url: "http://localhost:8080/accidentcenter/report",
 					dataType: "json",
 					data: JSON.stringify($('#report').serializeObject()),
