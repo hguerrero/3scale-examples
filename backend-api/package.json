@@ -1,0 +1,27 @@
+{
+  "name": "backend-api",
+  "version": "1.0.0",
+  "description": "test backend api",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hguerrero/3scale-examples.git"
+  },
+  "keywords": [
+    "3scale",
+    "nodejs",
+    "test",
+    "backend",
+    "api"
+  ],
+  "author": "Hugo Guerrero (hguerrer@redhat.com)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hguerrero/3scale-examples/issues"
+  },
+  "homepage": "https://github.com/hguerrero/3scale-examples#readme"
+}
