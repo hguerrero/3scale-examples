@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: grpc-helloworld
+  name: grpc-helloworld
+spec:
+  selector:
+    matchLabels:
+      app: grpc-helloworld
+  template:
+    metadata:
+      labels:
+        app: grpc-helloworld
+    spec:
+      volumes:
+      - name: certs-volume
+        secret:
+          secretName: ssl-certs-secret
+      containers:
+      - name: grpc-helloworld
+        image: quay.io/redhatintegration/grpc-helloworld:1.0.0
+        env:
+          - name: SSL_CERT_FILE
+            value: "/etc/certs/server.pem"
+          - name: SSL_KEY_FILE
+            value: "/etc/certs/server.key"        
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 9000
+        volumeMounts:
+        - name: certs-volume
+          readOnly: true
+          mountPath: "/etc/certs"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: grpc-helloworld
+spec:
+  selector:
+    app: grpc-helloworld
+  ports:
+  - port: 9000
+    targetPort: 9000

@@ -1,0 +1,13 @@
+apiVersion: capabilities.3scale.net/v1beta1
+kind: Backend
+metadata:
+  name: grpc-helloworld
+spec:
+  metrics:
+    hits:
+      description: Number of API hits
+      friendlyName: Hits
+      unit: hit
+  name: gRPC API
+  privateBaseURL: 'https://grpc-helloworld.grpc.svc.cluster.local:9000'
+  systemName: grpcapi
