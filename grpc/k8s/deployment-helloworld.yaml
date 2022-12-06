@@ -4,6 +4,7 @@ metadata:
   labels:
     app: grpc-helloworld
   name: grpc-helloworld
+  namespace: grpc
 spec:
   selector:
     matchLabels:
