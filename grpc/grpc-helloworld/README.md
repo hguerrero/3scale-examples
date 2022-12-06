@@ -1,6 +1,6 @@
-# grpc-helloworld Project
+# gRPC Hello World Project
 
-This project uses Quarkus, the Supersonic Subatomic Java Framework.
+This project uses Quarkus, the Supersonic Subatomic Java Framework. This is a simple gRPC example to use as a container.
 
 If you want to learn more about Quarkus, please visit its website: https://quarkus.io/ .
 
