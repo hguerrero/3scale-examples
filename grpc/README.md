@@ -42,8 +42,13 @@ This will create the `user_key` required to authenticate a test client.
 
 Get the testing URL from the Product configuration and use postman to run a request. 
 
+1. Enter the testing/staging url obtained from 3scale product configuration in the **server URL** box. Do not forget to replace https with grpc. So you server URL should start like this **grpc://grpc-api** instead of **https://grpc-api**
+1. From the *Select a method* drop down select **import a .proto file** option and enter this URL in the text box provided `https://raw.githubusercontent.com/hguerrero/3scale-examples/master/grpc/grpc-helloworld/src/main/proto/helloworld.proto`
+1. Click on the **use without importing** text shown on the screen 
+1. The **Select a method** drop down should now show the **SayHello** method. Select it.
 1. Select TLS but uncheck the certificate verification. 
-1. Add the `user_key` under Metadata.
+1. Under Metadata add the `user_key` and it's value obtained from 3scale. 
+1. Invoke the API call and you should able to see a greeting message as a response.
 
 You will be able to check the analytics in 3scale after a successful call.
 
