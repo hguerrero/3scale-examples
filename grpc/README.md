@@ -12,9 +12,22 @@ You will need to install and configure 3scale API Management using the Operator.
     cd 3scale-examples/grpc
     ```
 
-1. Deploy the gRPC service and Kubernetes resources:
+1. If you are using a cluster that allows you to create namespaces:
+
     ```sh
-    kubectl apply -f k8s/
+    oc new-project grpc
+    ```
+
+    In case you can't create a new project, do select the working project with:
+
+    ```sh
+    oc project <WORKING_PROJECT>
+    ```
+
+1. Deploy the gRPC service and Kubernetes resources:
+
+    ```sh
+    oc apply -f k8s/
     ```
 
 1. Change to the 3scale installation project
