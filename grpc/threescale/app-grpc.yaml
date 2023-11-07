@@ -1,0 +1,14 @@
+kind: Application
+apiVersion: capabilities.3scale.net/v1beta1
+metadata:
+  name: application-grpc
+spec:
+  accountCR:
+    name: developeraccount01
+  applicationPlanName: plan_basic
+  description: 'GRPC application'
+  name: grpc-app
+  productCR:
+    name: grpc-helloworld
+  suspend: false
+
